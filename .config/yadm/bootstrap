@@ -18,6 +18,6 @@ yadm remote set-url origin "git@github.com:PedroJoaoPereira/dotfiles-gentoo-lapt
 # set yadm git configurations
 yadm gitconfig "user.name" "PedroJoaoPereira"
 yadm gitconfig "user.email" "PedroJoaoPereira@users.noreply.github.com"
-yadm gitconfig "user.signingkey" "488BE1CF926F7D95"
+yadm gitconfig "user.signingkey" "65177B2E973C7005"
 yadm gitconfig "commit.gpgsign" "true"
 
