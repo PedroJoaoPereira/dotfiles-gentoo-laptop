@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Because Git submodule commands cannot operate without a work tree, they must
+# be run from within $HOME (assuming this is the root of your dotfiles)
+cd "$HOME"
+
+# initialize all git submodules
+yadm submodule update --recursive --init
+
+# decrypt secrets
+yadm decrypt
+
+# import gpg signing keys
+gpg --import ~/.gpg/chuck.gentoo.laptop.github.private.gpg
+
+# set origin as ssh
+yadm remote set-url origin "git@github.com:PedroJoaoPereira/dotfiles-gentoo-laptop.git"
+# set yadm git configurations
+yadm gitconfig "user.name" "PedroJoaoPereira"
+yadm gitconfig "user.email" "PedroJoaoPereira@users.noreply.github.com"
+yadm gitconfig "user.signingkey" "488BE1CF926F7D95"
+yadm gitconfig "commit.gpgsign" "true"
+
