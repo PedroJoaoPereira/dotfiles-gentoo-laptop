@@ -27,6 +27,9 @@ if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
 
+# enabling gpg-agent ioctl
+export GPG_TTY=$(tty)
+
 # start hyprland on boot
 if [[ -z "${WAYLAND_DISPLAY}" && "${XDG_VTNR}" -eq 1 ]]; then
 	2>/dev/null 1>&2 dbus-run-session Hyprland

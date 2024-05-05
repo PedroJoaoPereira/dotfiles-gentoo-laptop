@@ -5,8 +5,10 @@
 cd "$HOME"
 
 # initialize all git submodules
-yadm submodule update --recursive --init
+yadm submodule update --recursive --init --remote
 
+# symlink yadm archive
+ln -sf ~/.dotfiles-secrets/yadm_archive ~/.local/share/yadm/archive
 # decrypt secrets
 yadm decrypt
 
@@ -15,9 +17,20 @@ gpg --import ~/.gpg/chuck.gentoo.laptop.github.private.gpg
 
 # set origin as ssh
 yadm remote set-url origin "git@github.com:PedroJoaoPereira/dotfiles-gentoo-laptop.git"
+
 # set yadm git configurations
 yadm gitconfig "user.name" "PedroJoaoPereira"
 yadm gitconfig "user.email" "PedroJoaoPereira@users.noreply.github.com"
 yadm gitconfig "user.signingkey" "65177B2E973C7005"
 yadm gitconfig "commit.gpgsign" "true"
+yadm gitconfig "core.editor" "nvim"
+yadm gitconfig "init.defaultBranch" "main"
+
+# set global git configurations
+git config --global "user.name" "PedroJoaoPereira"
+git config --global "user.email" "PedroJoaoPereira@users.noreply.github.com"
+git config --global "user.signingkey" "65177B2E973C7005"
+git config --global "commit.gpgsign" "true"
+git config --global "core.editor" "nvim"
+git config --global "init.defaultBranch" "main"
 

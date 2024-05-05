@@ -1,0 +1,4 @@
+[submodule ".dotfiles-secrets"]
+	path = .dotfiles-secrets
+	url = https://PedroJoaoPereira@github.com/PedroJoaoPereira/dotfiles-secrets.git
+	branch = gentoo-laptop
