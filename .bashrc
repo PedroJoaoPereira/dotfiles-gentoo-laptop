@@ -43,6 +43,8 @@ alias shutdown='doas shutdown -h now' # alias for shut down now
 alias ls='eza --long --icons=always --all --git' # alias for ls with eza
 alias vi='nvim' # alias for neovim
 
+alias ~='cd ~'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
