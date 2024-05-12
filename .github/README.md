@@ -7,7 +7,7 @@
 This configuration uses:
 
 - `gentoo` - OS
-- `hyprland` - window manager
+- `i3wm` - window manager
 - `bash` - shell
 - `starship` - shell prompt customization
 
