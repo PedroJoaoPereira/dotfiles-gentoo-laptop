@@ -18,6 +18,8 @@ fi
 # Put your fun stuff here.
 # ----- ----- ----- -----
 
+# enabling gpg-agent ioctl
+export GPG_TTY=$(tty)
 # start authentication agent if none available
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
@@ -25,14 +27,6 @@ fi
 # retrieve already running authentication agent
 if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
-
-# enabling gpg-agent ioctl
-export GPG_TTY=$(tty)
-
-# start hyprland on boot
-if [[ -z "${WAYLAND_DISPLAY}" && "${XDG_VTNR}" -eq 1 ]]; then
-	2>/dev/null 1>&2 dbus-run-session Hyprland
 fi
 
 # change starship configuration location
@@ -43,6 +37,13 @@ eval "$(starship init bash)"
 eval "$(zoxide init --cmd cd bash)"
 
 # alias
+alias reboot='doas reboot' # alias for reboot
+alias shutdown='doas shutdown -h now' # alias for shut down now
+
 alias ls='eza --long --icons=always --all --git' # alias for ls with eza
 alias vi='nvim' # alias for neovim
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 

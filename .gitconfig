@@ -1,0 +1,10 @@
+[user]
+	name = PedroJoaoPereira
+	email = PedroJoaoPereira@users.noreply.github.com
+	signingkey = 65177B2E973C7005
+[commit]
+	gpgsign = true
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
