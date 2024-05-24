@@ -1,29 +1,28 @@
 # custom i3 configurations and keybindings
 
-# remove title bar and set borders width
-for_window [class="^.*"] border pixel 2
-
-# set font
-font pango:Hack Nerd Font Mono 8
-
-# set window gaps
-gaps inner 8
-gaps outer 8
-
 # start wallpaper manager
 exec feh --bg-fill --randomize ~/.wallpaper/* &
 # start pipewire audio
 exec gentoo-pipewire-launcher &
 
+# remove title bar and set borders width
+for_window [class=.*] border pixel 2
+default_border pixel 2
+# set font
+font pango:Hack Nerd Font Mono 8
+# set window gaps
+gaps inner 8
+
 # useful applications
 set $launcher rofi -show-icons -show drun
 set $hooker rofi -show-icons -show window
 set $terminal alacritty
-set $browser google-chrome-stable
+set $browser google-chrome-stable --enable-features=TouchpadOverscrollHistoryNavigation
+#set $browser firefox
 
 # start applications on boot
-exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/layouts/workspace-2.json; exec $browser'
-exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.config/i3/layouts/workspace-3.json; exec $terminal'
+exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/layouts/workspace-2.json; exec $browser; workspace 1'
+exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.config/i3/layouts/workspace-3.json; exec $terminal; workspace 1'
 exec --no-startup-id i3-msg 'workspace 1'
 
 # set leader key - SUPER
