@@ -1,55 +1,54 @@
 # custom i3 configurations and keybindings
 
-# start wallpaper manager
-exec feh --bg-fill --randomize ~/.wallpaper/* &
-# start pipewire audio
-exec gentoo-pipewire-launcher &
-
-# remove title bar and set borders width
-for_window [class=.*] border pixel 2
-default_border pixel 2
-# set font
-font pango:Hack Nerd Font Mono 8
-# set window gaps
-gaps inner 8
-
-# useful applications
-set $launcher rofi -show-icons -show drun
-set $hooker rofi -show-icons -show window
-set $terminal alacritty
-set $browser google-chrome-stable --enable-features=TouchpadOverscrollHistoryNavigation
-#set $browser firefox
-
-# start applications on boot
-exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/layouts/workspace-2.json; exec $browser; workspace 1'
-exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.config/i3/layouts/workspace-3.json; exec $terminal; workspace 1'
-exec --no-startup-id i3-msg 'workspace 1'
-
 # set leader key - SUPER
 set $mod Mod4
 
-# kill window - SUPER + c
-bindsym $mod+c kill
-# start menu launcher - SUPER + spacebar
-bindsym $mod+space exec --no-startup-id $launcher
-# start menu hooker - SUPER + shift + spacebar
-bindsym $mod+Shift+space exec --no-startup-id $hooker
-# start terminal - SUPER + t
-bindsym $mod+t exec --no-startup-id $terminal
-# start browser - SUPER + b
-bindsym $mod+b exec --no-startup-id $browser
+# ----- ----- ----- ----- -----
+
+# constants
+set $gaps 12
+
+set $launcher rofi -show-icons -show drun
+set $hooker rofi -show-icons -show window
+set $terminal alacritty
+set $browser google-chrome-stable --enable-features=TouchpadOverscrollHistoryNavigation --hide-crash-restore-bubble
+
+# ----- ----- ----- ----- -----
+
+# set font
+font pango:Hack Nerd Font Mono 8
+
+# disable borders
+default_border pixel 0
+default_floating_border pixel 0
+# remove title bar
+for_window [class=.*] border pixel 0
+
+# set window gaps
+gaps inner $gaps
+
+# drag floating windows with mouse - $mod + mouse
+floating_modifier $mod
+
+# ----- ----- ----- ----- -----
 
 # controller mode for system administration
-mode "controller" {
+mode "Admin" {
         # back to normal: Enter or Escape or same keybinding to enter
-        bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+Shift+Delete mode "default"
+        bindsym $mod+Escape mode "default"
 
-	# reboot - backspace
-	bindsym BackSpace exec --no-startup-id i3-msg 'exec doas reboot'
-	# shutdown - delete
-	bindsym Delete exec --no-startup-id i3-msg 'exec doas shutdown -h now'
+	# reset gaps - backspace
+	bindsym 0 gaps inner current set $gaps
+	# increase gaps - +
+	bindsym plus gaps inner current plus 4
+	# decrease gaps - -
+	bindsym minus gaps inner current minus 4
+
+	# reboot - delete
+	bindsym Delete exec --no-startup-id i3-msg 'exec doas reboot'
+	# shutdown - return
+	bindsym Return exec --no-startup-id i3-msg 'exec doas shutdown -h now'
 
 	# reload the configuration file - r
 	bindsym r reload
@@ -58,13 +57,29 @@ mode "controller" {
 	# exit i3 - shift + c
 	bindsym Shift+c exec --no-startup-id i3-msg 'exit'
 }
-# enter 'controller' mode - SUPER + shift + delete
-bindsym $mod+Shift+Delete mode "controller"
+# enter 'admin' mode - SUPER + escape
+bindsym $mod+Escape mode "Admin"
 
-# drag windows with mouse
-tiling_drag modifier titlebar
-# drag floating windows with mouse - $mod + mouse
-floating_modifier $mod
+# ----- ----- ----- ----- -----
+
+# kill window - SUPER + c
+bindsym $mod+c kill
+# start menu launcher - SUPER
+bindcode --release 133 exec --no-startup-id $launcher
+# start menu hooker - SUPER + tab
+bindsym $mod+Tab exec --no-startup-id $hooker
+
+
+
+
+# ----- ----- ----- ----- -----
+
+# start terminal - SUPER + t
+bindsym $mod+t exec --no-startup-id $terminal
+# start browser - SUPER + b
+bindsym $mod+b exec --no-startup-id $browser
+
+
 
 # force status refresh
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -181,6 +196,29 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-}
+#bar {
+        #status_command i3status
+#}
+
+# x compositor for rounded corners and transparency
+exec_always --no-startup-id picom --daemon
+# top status bar
+exec_always --no-startup-id ~/.config/polybar/launch
+
+# start pipewire audio
+exec gentoo-pipewire-launcher &
+# start wallpaper manager
+exec feh --bg-fill --randomize ~/.wallpaper/* &
+
+# start applications on boot
+exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/layouts/workspace-2.json; exec $browser; workspace 1'
+exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.config/i3/layouts/workspace-3.json; exec $terminal; workspace 1'
+exec --no-startup-id i3-msg 'workspace 1'
+
+
+
+
+
+
+
+
