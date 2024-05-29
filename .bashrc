@@ -20,14 +20,8 @@ fi
 
 # enabling gpg-agent ioctl
 export GPG_TTY=$(tty)
-# start authentication agent if none available
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-# retrieve already running authentication agent
-if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
+# start authentication agent manager
+eval $(keychain --eval --quiet)
 
 # change starship configuration location
 export STARSHIP_CONFIG=~/.config/starship/starship.toml

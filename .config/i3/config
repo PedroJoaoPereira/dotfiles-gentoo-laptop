@@ -8,8 +8,13 @@ set $mod Mod4
 # constants
 set $gaps 12
 
-set $launcher rofi -show-icons -show drun
-set $hooker rofi -show-icons -show window
+# desktop setup
+set $audioServer gentoo-pipewire-launcher restart
+set $compositor picom --daemon
+set $wallpaper feh --bg-fill --randomize ~/.wallpaper/* 
+set $statusBar ~/.config/polybar/launch
+
+set $launcher rofi -show-icons
 set $terminal alacritty
 set $browser google-chrome-stable --enable-features=TouchpadOverscrollHistoryNavigation --hide-crash-restore-bubble
 
@@ -65,29 +70,21 @@ bindsym $mod+Escape mode "Admin"
 # kill window - SUPER + c
 bindsym $mod+c kill
 # start menu launcher - SUPER
-bindcode --release 133 exec --no-startup-id $launcher
-# start menu hooker - SUPER + tab
-bindsym $mod+Tab exec --no-startup-id $hooker
-
-
-
+bindcode --release 133 exec --no-startup-id $launcher -show drun
+# start menu launcher hooker - SUPER + p
+bindsym $mod+p exec --no-startup-id $launcher -show window
+# start menu ssh launcher - SUPER + shift + p
+bindsym $mod+Shift+p exec --no-startup-id $launcher -show ssh
+# start terminal - SUPER + t
+bindsym $mod+t exec --no-startup-id $terminal
 
 # ----- ----- ----- ----- -----
 
-# start terminal - SUPER + t
-bindsym $mod+t exec --no-startup-id $terminal
-# start browser - SUPER + b
-bindsym $mod+b exec --no-startup-id $browser
-
-
-
-# force status refresh
-set $refresh_i3status killall -SIGUSR1 i3status
 # adjust pipewire volume - sound keys xf86
-bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 10%+ && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 10%- && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_SINK@ toggle && polybar-msg cmd restart 
+bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_SOURCE@ toggle && polybar-msg cmd restart
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 10%+ && polybar-msg cmd restart
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 10%- && polybar-msg cmd restart
 
 # change focus
 bindsym $mod+j focus left
@@ -194,21 +191,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-        #status_command i3status
-#}
-
-# x compositor for rounded corners and transparency
-exec_always --no-startup-id picom --daemon
-# top status bar
-exec_always --no-startup-id ~/.config/polybar/launch
+# ----- ----- ----- ----- -----
 
 # start pipewire audio
-exec gentoo-pipewire-launcher &
+exec_always --no-startup-id $audioServer
+# x compositor for rounded corners and transparency
+exec_always --no-startup-id $compositor
 # start wallpaper manager
-exec feh --bg-fill --randomize ~/.wallpaper/* &
+exec_always --no-startup-id $wallpaper
+# top status bar
+exec_always --no-startup-id $statusBar
+
 
 # start applications on boot
 exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.config/i3/layouts/workspace-2.json; exec $browser; workspace 1'
