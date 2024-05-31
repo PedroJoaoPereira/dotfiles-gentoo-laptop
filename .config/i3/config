@@ -33,7 +33,7 @@ for_window [class=.*] border pixel 0
 gaps inner $gaps
 
 # drag floating windows with mouse - $mod + mouse
-floating_modifier Control
+floating_modifier Control+$mod
 
 # ----- ----- ----- ----- -----
 
@@ -180,6 +180,18 @@ bindsym $mod+p exec --no-startup-id $launcher -show window
 bindsym $mod+Shift+p exec --no-startup-id $launcher -show ssh
 # start terminal - SUPER + t
 bindsym $mod+t exec --no-startup-id $terminal
+
+# ----- ----- ----- ----- -----
+
+# clipboard printscreen - printscreen
+bindsym Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+# clipboard printscreen to file - shift + printscreen
+bindsym Shift+Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+
+# clipboard schreeshot - SUPER + shift + s
+bindsym $mod+Shift+s exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+# clipboard printscreen to file - shift + printscreen
+bindsym $mod+Shift+Ctrl+s exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
 
 # ----- ----- ----- ----- -----
 

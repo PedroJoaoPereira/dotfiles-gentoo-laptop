@@ -7,6 +7,9 @@ cd "$HOME"
 # initialize all git submodules
 yadm submodule update --recursive --init --remote
 
+# create required directories
+mkdir -p ~/Pictures
+
 # symlink yadm archive
 ln -sf ~/.dotfiles-secrets/yadm_archive ~/.local/share/yadm/archive
 # decrypt secrets
