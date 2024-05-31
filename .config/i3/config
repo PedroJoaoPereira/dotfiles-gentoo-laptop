@@ -16,6 +16,7 @@ set $statusBar ~/.config/polybar/launch
 
 set $launcher rofi -show-icons
 set $terminal alacritty
+set $monitor alacritty -e btop
 set $browser google-chrome-stable --enable-features=TouchpadOverscrollHistoryNavigation --hide-crash-restore-bubble
 
 # ----- ----- ----- ----- -----
@@ -61,11 +62,23 @@ mode "Admin" {
 	bindsym Shift+r restart
 	# exit i3 - shift + c
 	bindsym Shift+c exec --no-startup-id i3-msg 'exit'
+
+	# mute - m
+	bindsym m exec --no-startup-id wpctl set-mute @DEFAULT_SINK@ toggle && polybar-msg cmd restart 
+	# mic mute - k
+	bindsym k exec --no-startup-id wpctl set-mute @DEFAULT_SOURCE@ toggle && polybar-msg cmd restart
+	# raise volume - up arrow
+	bindsym Up exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 10%+ && polybar-msg cmd restart
+	# decrease volume - down arrow
+	bindsym Down exec --no-startup-id wpctl set-volume @DEFAULT_SINK@ 10%- && polybar-msg cmd restart
+
+	# increase screen backlight - ctrl + up
+	bindsym Ctrl+Up exec --no-startup-id  "xbacklight +10"
+	# decrease screen backlight - ctrl + down
+	bindsym Ctrl+Down exec --no-startup-id "xbacklight -10"
 }
 # enter 'admin' mode - SUPER + escape
 bindsym $mod+Escape mode "Admin"
-
-# ----- ----- ----- ----- -----
 
 # adjust pipewire volume - sound keys xf86
 bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_SINK@ toggle && polybar-msg cmd restart 
@@ -79,25 +92,17 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -10"
 
 # ----- ----- ----- ----- -----
 
-# change focus - SUPER + vi and arrow keys
+# change focus - SUPER + vi keys
 bindsym $mod+h focus left
-bindsym $mod+Left focus left
 bindsym $mod+j focus down
-bindsym $mod+Down focus down
 bindsym $mod+k focus up
-bindsym $mod+Up focus up
 bindsym $mod+l focus right
-bindsym $mod+Right focus right
 
-# move focused window - SUPER + shift + vi and arrow keys
+# move focused window - SUPER + shift + vi keys
 bindsym $mod+Shift+h move left
-bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+j move down
-bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+k move up
-bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+l move right
-bindsym $mod+Shift+Right move right
 
 # ----- ----- ----- ----- -----
 
@@ -156,6 +161,13 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws0
 
+# switch to next and previous workspace
+bindsym $mod+Right workspace next
+bindsym $mod+Left workspace prev
+
+# jump to last used workspace
+bindsym $mod+Tab workspace back_and_forth
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -180,6 +192,8 @@ bindsym $mod+p exec --no-startup-id $launcher -show window
 bindsym $mod+Shift+p exec --no-startup-id $launcher -show ssh
 # start terminal - SUPER + t
 bindsym $mod+t exec --no-startup-id $terminal
+# start terminal - ctrl + shift + esc
+bindsym Ctrl+Shift+Escape exec --no-startup-id $monitor
 
 # ----- ----- ----- ----- -----
 
