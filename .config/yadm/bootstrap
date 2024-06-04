@@ -18,9 +18,6 @@ yadm decrypt
 # import gpg signing keys
 gpg --import ~/.gpg/chuck.gentoo.laptop.github.private.gpg
 
-# set x11 configurations
-doas ln -sf ~/.xorg.conf.d/* /etc/X11/xorg.conf.d/
-
 # set origin as ssh
 yadm remote set-url origin "git@github.com:PedroJoaoPereira/dotfiles-gentoo-laptop.git"
 

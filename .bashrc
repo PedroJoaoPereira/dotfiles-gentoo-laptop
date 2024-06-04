@@ -1,10 +1,7 @@
-# /etc/skel/.bashrc
-#
 # This file is sourced by all *interactive* bash shells on startup,
 # including some apparently interactive shells such as scp and rcp
 # that can't tolerate any output.  So make sure this doesn't display
 # anything or bad things will happen !
-
 
 # Test for an interactive shell.  There is no need to set anything
 # past this point for scp and rcp, and it's important to refrain from
@@ -14,8 +11,6 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-
-# Put your fun stuff here.
 # ----- ----- ----- -----
 
 # enabling gpg-agent ioctl
@@ -36,6 +31,7 @@ alias shutdown='doas shutdown -h now' # alias for shut down now
 
 alias ls='eza --long --icons=always --all --git' # alias for ls with eza
 alias vi='nvim' # alias for neovim
+alias doas='doas ' # alias for doas
 
 alias ~='cd ~'
 
