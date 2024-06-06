@@ -1,0 +1,79 @@
+{
+	"layer": "top",
+	"position": "top",
+	"reload_style_on_change": true,
+
+	"modules-left": [
+		"battery",
+		"cpu",
+		"memory",
+	],
+	"modules-center": [
+		"hyprland/workspaces",
+	],
+	"modules-right": [
+		"pulseaudio",
+		"backlight",
+		"network",
+		"clock",
+	],
+
+	"battery": {
+		"interval": 60,
+		"states": {
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{capacity}% {icon}",
+		"format-icons": ["", "", "", "", ""],
+		"max-length": 25
+	},
+	"cpu": {
+		"interval": 10,
+		"format": "{}% ",
+		"max-length": 10
+	},
+	"memory": {
+		"interval": 30,
+		"format": "{used:0.1f}G/{total:0.1f}G "
+	},
+
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"on-scroll-up": "hyprctl dispatch workspace e+1",
+		"on-scroll-down": "hyprctl dispatch workspace e-1"
+	},
+
+	"network": {
+		"interface": "wlo1",
+		"format": "{ifname}",
+		"format-wifi": "{essid} ({signalStrength}%) ",
+		"format-ethernet": "{ipaddr}/{cidr} 󰊗",
+		"format-disconnected": "", //An empty format will hide the module.
+		"tooltip-format": "{ifname} via {gwaddr} 󰊗",
+		"tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+		"tooltip-format-ethernet": "{ifname} ",
+		"tooltip-format-disconnected": "Disconnected",
+		"max-length": 50
+	},
+	"clock": {
+		"format": "{:%a %d-%m-%y %R}",
+		"tooltip-format": "<tt><small>{calendar}</small></tt>",
+		"calendar": {
+			"mode": "year",
+			"mode-mon-col": 3,
+			"on-scroll": 1,
+			"format": {
+				"months": "<span color='#ffead3'><b>{}</b></span>",
+				"days": "<span color='#ecc6d9'><b>{}</b></span>",
+				"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+				"today": "<span color='#ff6699'><b>{}</b></span>"
+			}
+		},
+		"actions": {
+			"on-click": "shift_up",
+			"on-click-right": "shift_down"
+		}
+	},
+}
+

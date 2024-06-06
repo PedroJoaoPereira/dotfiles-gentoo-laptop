@@ -1,0 +1,41 @@
+* {
+  font-family: "Hack Nerd Font Mono";
+  font-size: 14px;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+#battery,
+#cpu,
+#memory,
+#workspaces,
+#pulseaudio,
+#backlight,
+#network,
+#clock {
+  border-radius: 8px;
+  background-color: rgba(26, 27, 38, 0.8);
+  color: #a9b1d6;
+
+  margin: 8px 4px;
+  margin-bottom: 0px;
+
+  padding: 0px 12px;
+
+  min-width: 20px;
+}
+
+#battery {
+  margin-left: 12px;
+}
+
+#clock {
+  margin-right: 12px;
+}
+
+#workspaces button {
+  color: #b4befe;
+}
+
