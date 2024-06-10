@@ -17,3 +17,25 @@ tooltip label {
   padding: 20px 12px;
 }
 
+#submap {
+  background-color: #c0caf5;
+  color: #1a1b26;
+}
+
+#workspaces button {
+  margin: 0;
+  padding: 0;
+  opacity: 0.4;
+}
+
+#workspaces button.active {
+  opacity: 1;
+}
+
+#workspaces button:hover {
+  box-shadow: none;
+  text-shadow: none;
+  background: #565f89;
+  opacity: 0.8;
+}
+
