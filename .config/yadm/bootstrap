@@ -37,3 +37,5 @@ git config --global "commit.gpgsign" "true"
 git config --global "core.editor" "nvim"
 git config --global "init.defaultBranch" "main"
 
+pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:analog-stereo+input:analog-stereo
+
